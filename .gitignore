@@ -1,0 +1,6 @@
+job/node_modules
+worker/node_modules
+job/.env
+worker/.env
+job/logs
+worker/logs
