@@ -3,6 +3,7 @@ import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
 import axios from "axios";
 import logger from "m-node-logger";
+import { SellerType } from "../types";
 
 class GenerateMessages {
     async execute() {
@@ -28,7 +29,7 @@ class GenerateMessages {
 
         await Promise.race(sellers.map(async (seller) => {
             channel.assertQueue(env.BROKER_QUEUE, {
-                durable: false
+                durable: true
             });
 
             const message = JSON.stringify(seller);

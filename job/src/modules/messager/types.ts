@@ -1,4 +1,4 @@
-type SellerType = {
+export type SellerType = {
     nome: string,
     telefone: string,
     id: number

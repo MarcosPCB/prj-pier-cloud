@@ -1,12 +1,18 @@
 import { app } from './app'
 import { env } from './shared/env'
 import logger from 'm-node-logger'
-import { schedule } from 'node-cron';
+import makeTestBroker from './modules/messager/services/TestBroker';
+import AppError from './shared/errors/AppError';
 
-app.listen({
-  host: '0.0.0.0',
-  port: env.PORT,
+makeTestBroker().execute().then((result: boolean) => {
+  app.listen({
+    host: '0.0.0.0',
+    port: env.PORT,
+  });
+
+  logger.info('HTTP Server Running');
+  logger.info('Running on port:', env.PORT);
+}).catch((err: AppError) => {
+  logger.info(`Message broker connection: FAIL`);
+  throw `Unable to start services without Message Broker enabled`;
 });
-
-logger.info('HTTP Server Running');
-logger.info('Running on port:', env.PORT);
