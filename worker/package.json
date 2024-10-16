@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "IS_DEV=true ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "IS_DEV=true ts-node-dev --inspect=9300 --transpile-only --ignore-watch node_modules src/server.ts",
     "lint": "eslint ./src --fix",
     "format": "prettier --write \"src/**/*{.ts,.js}\"",
     "build": "tsc",

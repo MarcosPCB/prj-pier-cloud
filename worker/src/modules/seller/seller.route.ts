@@ -4,7 +4,7 @@ import Controller from './Controller';
 const router = Router()
 const controller = new Controller();
 
-// POST
-router.post('/subscribe', controller.subscribeQueue);
+// GET
+router.get('/download', controller.downloadCSV);
 
 export { router };
