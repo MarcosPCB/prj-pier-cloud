@@ -8,7 +8,7 @@ import makeExportCSV from "./ExportCSV";
 import handleError from "../../../shared/errors/handleError";
 
 class SubscribeQueue {
-    async execute(queue?: string) {
+    async execute(queue?: string, tag?: string) {
         if(!queue)
             queue = env.BROKER_QUEUE;
 
@@ -23,7 +23,7 @@ class SubscribeQueue {
             durable: true
         });
 
-        await channel.consume(queue, async (msg: ConsumeMessage | null) => {
+        const consumer = await channel.consume(queue, async (msg: ConsumeMessage | null) => {
             if(msg) {
                 let data: SellerType;
                 try {
@@ -38,7 +38,10 @@ class SubscribeQueue {
                 const service = makeConsolidate();
                 service.execute(data).then((report) => {
                     const service = makeExportCSV();
-                    service.execute(report, data.id).catch((err: any) => {
+                    service.execute(report, data.id).then((result) => {
+                        if(result)
+                            channel.ack(msg, false);
+                    }).catch((err: any) => {
                         const { status, message, data } = handleError(err);
                         logger.error(`Status: ${status} - ${message} - ${data}`);
                     });
@@ -48,10 +51,11 @@ class SubscribeQueue {
                 });
             }
         }, {
-            noAck: true
+            noAck: false,
+            consumerTag: tag
         });
 
-        return true;
+        return consumer;
     }
 }
 
