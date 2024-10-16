@@ -6,7 +6,10 @@ import logger from "m-node-logger";
 import { SellerType } from "../types";
 
 class GenerateMessages {
-    async execute() {
+    async execute(queue?: string) {
+        if(!queue)
+            queue = env.BROKER_QUEUE;
+
         const broker = await connect(env.API_BROKER_URL);
 
         if(!broker)
@@ -28,13 +31,13 @@ class GenerateMessages {
         let num_messages = 0;
 
         await Promise.race(sellers.map(async (seller) => {
-            channel.assertQueue(env.BROKER_QUEUE, {
+            channel.assertQueue(queue, {
                 durable: true
             });
 
             const message = JSON.stringify(seller);
 
-            channel.sendToQueue(env.BROKER_QUEUE, Buffer.from(message));
+            channel.sendToQueue(queue, Buffer.from(message));
 
             logger.info(`Message ${message}`);
             num_messages++;
