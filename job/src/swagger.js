@@ -11,7 +11,7 @@ const doc = {
     tags: [
         {
           "name": "messager",
-          "description": "Endpoints do do mensageiro"
+          "description": "Endpoints do mensageiro"
         },
     ],
     definitions: {

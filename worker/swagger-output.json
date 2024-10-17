@@ -1,0 +1,105 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Serviço Worker",
+    "description": "Documentação da API Backend do serviço Worker.\nPara o pleno funcionamento da API, é necessário um serviço de Broker rodando (RabbitMQ).",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3010",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "consumer",
+      "description": "Endpoints do consumidor"
+    },
+    {
+      "name": "seller",
+      "description": "Endpoints para o vendedor poder baixar os CSVs"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/consumer/subscribe": {
+      "post": {
+        "tags": [
+          "consumer"
+        ],
+        "description": "Endpoint para se inscrever em uma determinada fila do Broker de mensageria",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Dados do consumo da mensageria",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queue": {
+                  "type": "string",
+                  "example": "Nome da fila no Broker"
+                },
+                "tag": {
+                  "type": "string",
+                  "example": "Nome da tag do consumidor"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Consumidor criado e está inscrito na fila do Broker",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "consumerTag": {
+                  "type": "string",
+                  "example": "Tag do consumidor"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro no servidor ou não foi possível se conectar ao Broker"
+          }
+        }
+      }
+    },
+    "/seller/download": {
+      "get": {
+        "tags": [
+          "seller"
+        ],
+        "description": "Endpoint para fazer download dos CSVs de um determinado vendedor",
+        "produces": [
+          "text/csv"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID do vendedor",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Faz download do arquivo CSV ou do seu backup"
+          },
+          "404": {
+            "description": "Não foi possível encontrar o CSV requisitado"
+          },
+          "500": {
+            "description": "Erro no servidor ou não possível fazer download do arquivo"
+          }
+        }
+      }
+    }
+  }
+}

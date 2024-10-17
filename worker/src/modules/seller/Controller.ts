@@ -6,6 +6,27 @@ import logger from "m-node-logger";
 
 export default class Controller {
     async downloadCSV(req: Request, res: Response) {
+        /* 	#swagger.tags = ['seller']
+            #swagger.description = 'Endpoint para fazer download dos CSVs de um determinado vendedor' */
+
+        /*	#swagger.parameters['id'] = {
+            in: 'query',
+            description: 'ID do vendedor',
+            required: true,
+        } */
+
+        /* #swagger.responses[200] = { 
+            description: "Faz download do arquivo CSV ou do seu backup" 
+        } */
+
+        /* #swagger.responses[404] = { 
+            description: "Não foi possível encontrar o CSV requisitado" 
+        } */
+
+        /* #swagger.responses[500] = { 
+            description: "Erro no servidor ou não possível fazer download do arquivo" 
+        } */
+
         try {
             const params = z.object({
                 id: z.string()
