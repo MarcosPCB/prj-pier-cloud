@@ -71,7 +71,7 @@ A seguir estão os principais endpoints oferecidos pela API do **Serviço Worker
 
 **Endpoint**: `POST /consumer/subscribe`
 
-Este endpoint permite inscrever um consumidor em uma fila específica do RabbitMQ.
+Este endpoint permite inscrever um consumidor em uma fila específica do RabbitMQ. Conforme as mensagens forem distribuidas, a API automaticamente processará a mensagem, buscará os dados correspondentes nas APIs de Vendas, Produtos e Clientes, consolidando-os em uma relatório de vendas CSV que ficará salvo na pasta CSVs com a nomenclatura "relatorio_ID.csv" sendo ID a identificação do vendedor.
 
 #### Requisição:
 
