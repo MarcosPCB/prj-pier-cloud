@@ -1,11 +1,13 @@
 import { connect, Connection } from "amqplib";
 import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import logger from "m-node-logger";
 import { SellerType } from "../types";
 
 class GenerateMessages {
+    constructor(private readonly sellerApi: Axios) {}
+
     async execute(queue?: string) {
         if(!queue)
             queue = env.BROKER_QUEUE;
@@ -15,18 +17,14 @@ class GenerateMessages {
         if(!broker)
             throw new AppError(`Unable to connect to broker`, 500);
 
-        const response = await axios.get(env.API_SELLER_URL, {
-            headers: {
-                Accept: 'application/json'
-            }
-        });
+        const response = await this.sellerApi.get('/');
 
         if(response.status != 200)
             throw new AppError(`Unable to get a valid response from seller's API`, 502);
 
         const channel = await broker.createChannel();
 
-        const sellers: SellerType[] = response.data;
+        const sellers: SellerType[] = JSON.parse(response.data);
 
         let num_messages = 0;
 
@@ -52,5 +50,7 @@ class GenerateMessages {
 }
 
 export default function makeGenerateMessages() {
-    return new GenerateMessages()
+    return new GenerateMessages(new Axios({
+        baseURL: env.API_SELLER_URL
+    }));
 }
