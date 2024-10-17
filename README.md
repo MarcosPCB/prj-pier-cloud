@@ -50,6 +50,10 @@ root/
   
 - Para mais detalhes, consulte o [README do Job](https://github.com/MarcosPCB/prj-pier-cloud/blob/dev/job/README.md).
 
+### Arquitetura do Projeto
+
+[image](https://github.com/MarcosPCB/prj-pier-cloud/blob/dev/architecture.png)
+
 ## Pré-requisitos
 
 Certifique-se de que os seguintes requisitos estão atendidos antes de iniciar a aplicação:
