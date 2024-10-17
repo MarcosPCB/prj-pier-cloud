@@ -4,7 +4,7 @@
 
 ## Visão Geral
 
-Bem-vindo à documentação da API do **Serviço Job**! Esta API foi desenvolvida para o envio de mensagens para um **broker de mensageria** (RabbitMQ) com informações de vendedores. A API fornece dois endpoints principais: um para o envio de várias mensagens e outro para o envio de uma única mensagem.
+Bem-vindo à documentação da API do **Serviço Job**! Esta API foi desenvolvida para o envio de mensagens para um **broker de mensageria** (RabbitMQ) com informações de vendedores. A API fornece dois endpoints principais - um para o envio de várias mensagens e outro para o envio de uma única mensagem.
 
 ### Como funciona?
 

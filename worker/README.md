@@ -2,11 +2,11 @@
 
 # Serviço Worker - API Backend
 
-Bem-vindo à API Backend do **Serviço Worker**! Esta API foi desenvolvida para facilitar a comunicação com um serviço de **Broker de mensageria** (RabbitMQ) e permitir o download de arquivos CSV de vendedores. A API possui dois principais grupos de funcionalidades: inscrição de consumidores em filas de mensageria e download de arquivos CSV de vendedores.
+Bem-vindo à API Backend do **Serviço Worker**! Esta API foi desenvolvida para facilitar a comunicação com um serviço de **Broker de mensageria** (RabbitMQ) e permitir o download de arquivos CSV de vendedores. A API possui dois principais grupos de funcionalidades - inscrição de consumidores em filas de mensageria e download de arquivos CSV de vendedores.
 
 ## Requisitos
 
-Antes de utilizar a API, certifique-se de que os seguintes requisitos estejam atendidos:
+Antes de utilizar a API, certifique-se de que os seguintes requisitos estejam atendidos.
 
 - **RabbitMQ**: A API requer que o RabbitMQ esteja rodando para gerenciar as filas de mensagens.
 
@@ -79,7 +79,7 @@ Este endpoint permite inscrever um consumidor em uma fila específica do RabbitM
   - `queue` (string, opcional): Nome da fila no RabbitMQ. Exemplo: `"Nome da fila no Broker"`. Caso não seja enviado, ele utilizará o nome de file padrão no .env.
   - `tag` (string, opcional): Tag do consumidor que será utilizada. Exemplo: `"Nome da tag do consumidor"`. Caso não seja enviada, o Broker criará uma Tag aleatória.
 
-  Exemplo de corpo de requisição:
+Exemplo de corpo de requisição:
   ```json
   {
     "queue": "minha-fila",
