@@ -37,7 +37,9 @@ class GenerateMessages {
 
             const message = JSON.stringify(seller);
 
-            channel.sendToQueue(queue, Buffer.from(message));
+            channel.sendToQueue(env.BROKER_QUEUE, Buffer.from(message), {
+                persistent: true
+            });
 
             logger.info(`Message ${message}`);
             num_messages++;

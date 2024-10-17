@@ -3,10 +3,8 @@ import { env } from '../src/shared/env';
 import { SellerType } from '../src/modules/messager/types'
 import Controller from '../src/modules/messager/Controller'
 import { Request, Response } from 'express';
-import makeGenerateMessages from '../src/modules/messager/services/GenerateMessages';
 import { connect } from 'amqplib';
 import logger from 'm-node-logger';
-import fs from 'fs';
 
 logger.init({
     path: 'logs',
