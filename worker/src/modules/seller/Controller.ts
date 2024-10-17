@@ -16,6 +16,7 @@ export default class Controller {
             const service = makeDownloadCSV();
 
             const result = await service.execute(Number(id));
+            res.setHeader(`Content-Type`, 'text/csv');
             return res.download(result, (err) => {
                 if (err) {
                     logger.error(err);

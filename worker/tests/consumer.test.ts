@@ -5,7 +5,6 @@ import Controller from '../src/modules/consumer/Controller'
 import { Request, Response } from 'express';
 import { connect } from 'amqplib';
 import logger from 'm-node-logger';
-import makeSubscribeQueue from '../src/modules/consumer/services/SubscribeQueue';
 import fs from  'fs';
 import papa from 'papaparse';
 import makeConsolidate from '../src/modules/consumer/services/Consolidate';
