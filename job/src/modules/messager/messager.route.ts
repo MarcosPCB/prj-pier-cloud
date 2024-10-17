@@ -6,5 +6,6 @@ const controller = new Controller();
 
 // POST
 router.post('/generate', controller.generateMessages);
+router.post('/message', controller.sendSingleMessage);
 
 export { router };
