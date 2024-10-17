@@ -4,4 +4,4 @@ job/.env
 worker/.env
 job/logs
 worker/logs
-worker/CSVs
+worker/CSVs/*.bak
