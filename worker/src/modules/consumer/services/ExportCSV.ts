@@ -1,6 +1,6 @@
 import papa from 'papaparse'
 import { ReportInterface } from '../types';
-import fs from 'fs';
+import fs from 'fs/promises';
 import logger from 'm-node-logger';
 
 class ExportCSV {
@@ -16,18 +16,21 @@ class ExportCSV {
 
         logger.info(`Generating CSV report...`);
 
-        if(fs.existsSync(path)) {
+        try {
+            await fs.copyFile(path, `${path}.bak`);
+            const content = await fs.readFile(path);
             logger.info(`Backing up existent CSV report...`);
-            fs.copyFileSync(path, `${path}.bak`);
-            const content = fs.readFileSync(path);
             current = papa.parse(content.toString(), this.parseConfig).data;
+            logger.info(`Appending data...`);
+        } catch(err) { 
+            logger.info(`Writing first time CSV report`)
         }
 
         current.push(...report);
 
         const csv = papa.unparse(current, this.unparseConfig);
 
-        fs.writeFileSync(path, csv);
+        await fs.writeFile(path, csv);
 
         logger.info(`CSV report exported for seller ${id}`);
 

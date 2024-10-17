@@ -9,14 +9,13 @@
     "format": "prettier --write \"src/**/*{.ts,.js}\"",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "jest --forceExit --runInBand",
+    "test": "jest --forceExit --runInBand --silent --verbose",
     "swagger": "node ./src/swagger.js"
   },
   "dependencies": {
     "@types/amqplib": "^0.10.5",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
-    "@types/mocha": "^10.0.9",
     "@types/papaparse": "^5.3.14",
     "amqplib": "^0.10.4",
     "axios": "^1.7.7",

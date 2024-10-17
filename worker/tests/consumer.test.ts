@@ -103,10 +103,6 @@ describe('Consumer Service', () => {
 
         expect(queue.consumerCount).toBe(1);
 
-        const evnts = await channel.eventNames();
-
-        console.log(evnts);
-
         await channel.cancel(tag);
 
         await connection.close();
