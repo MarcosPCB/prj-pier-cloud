@@ -106,7 +106,7 @@ BROKER_QUEUE=sellerQueue
 Dentro de cada serviço (`job/` e `worker/`), execute o seguinte comando:
 
 ```bash
-yarn
+yarn install
 ```
 
 ### 4. Rode os Testes

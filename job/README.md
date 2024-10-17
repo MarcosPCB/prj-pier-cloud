@@ -47,7 +47,7 @@ Esses dados referem-se à **porta** utilizada pela API, à URL da **API de vende
 3. Instale as dependências do projeto:
 
    ```bash
-   yarn
+   yarn install
    ```
 
 4. Certifique-se de que o Broker de Mensageria (RabbitMQ) esteja rodando antes de iniciar os testes ou a aplicação.

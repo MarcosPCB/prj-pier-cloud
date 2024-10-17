@@ -42,7 +42,7 @@ Antes de utilizar a API, certifique-se de que os seguintes requisitos estejam at
 3. Instale as dependências do projeto:
 
    ```bash
-   yarn
+   yarn install
    ```
 
 4. Certifique-se de que o Broker de Mensageria (RabbitMQ) esteja rodando antes de iniciar os testes ou a aplicação.
