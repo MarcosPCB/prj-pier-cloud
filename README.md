@@ -52,7 +52,7 @@ root/
 
 ### Arquitetura do Projeto
 
-[image](https://github.com/MarcosPCB/prj-pier-cloud/blob/dev/architecture.png)
+![image](https://github.com/MarcosPCB/prj-pier-cloud/blob/dev/architecture.png)
 
 ## Pré-requisitos
 
