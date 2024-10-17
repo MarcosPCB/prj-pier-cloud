@@ -4,3 +4,6 @@ job/.env
 worker/.env
 job/logs
 worker/logs
+worker/CSVs
+job/dist
+worker/dist

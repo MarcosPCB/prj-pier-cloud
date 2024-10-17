@@ -4,8 +4,7 @@ import Controller from './Controller';
 const router = Router()
 const controller = new Controller();
 
-// POST
-router.post('/generate', controller.generateMessages);
-router.post('/message', controller.sendSingleMessage);
+// GET
+router.get('/download', controller.downloadCSV);
 
 export { router };
