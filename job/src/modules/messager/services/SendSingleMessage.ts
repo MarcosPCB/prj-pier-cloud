@@ -2,10 +2,10 @@ import { connect, Connection } from "amqplib";
 import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
 import logger from "m-node-logger";
-import { SellerType } from "../types";
+import { TSeller } from "../types";
 
 class SendSingleMessage {
-    async execute(sellerData: SellerType, queue?: string) {
+    async execute(sellerData: TSeller, queue?: string) {
         if(!queue)
             queue = env.BROKER_QUEUE;
 

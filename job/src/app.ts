@@ -3,7 +3,7 @@ import routes from './shared/routes'
 import logger from 'm-node-logger'
 
 const swagger = require('swagger-ui-express');
-//const swaggerDoc = require('../swagger-output.json');
+const swaggerDoc = require('../swagger-output.json');
 
 const app = express();
 
@@ -15,7 +15,7 @@ logger.init({
 });
 
 app.use('/api-docs', swagger.serve);
-//app.get('/api-docs', swagger.setup(swaggerDoc));
+app.get('/api-docs', swagger.setup(swaggerDoc));
 
 app.use(express.json());
 

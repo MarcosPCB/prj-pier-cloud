@@ -1,7 +1,7 @@
 import { connect, ConsumeMessage } from "amqplib";
 import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
-import { SellerType } from "../types";
+import { TSeller } from "../types";
 import logger from "m-node-logger";
 import makeConsolidate from "./Consolidate";
 import makeExportCSV from "./ExportCSV";
@@ -27,7 +27,7 @@ class SubscribeQueue {
         const consumer = await channel.consume(queue, async (msg: ConsumeMessage | null) => {
             consumerStatus.delivered++;
             if(msg) {
-                let data: SellerType;
+                let data: TSeller;
                 try {
                     data = JSON.parse(String(msg.content));
                 } catch (err) {

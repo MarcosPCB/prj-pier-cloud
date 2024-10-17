@@ -1,5 +1,6 @@
 import logger from 'm-node-logger'
 import AppError from './AppError'
+import { ZodError } from 'zod'
 
 interface IErrorHandled {
   status: number
@@ -14,6 +15,14 @@ function handleError(err: Error): IErrorHandled {
     return {
       status: err.statusCode,
       message: err.message,
+    }
+  }
+
+  if(err instanceof ZodError) {
+    logger.error(`Status: 400, message: ${err.message}`);
+    return {
+      status: 400,
+      message: err.message
     }
   }
 

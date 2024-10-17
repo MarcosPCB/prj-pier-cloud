@@ -1,5 +1,5 @@
 import axios, { Axios, AxiosResponse } from "axios";
-import { ClientType, ProductType, ReportInterface, SalesType, SellerType } from "../types";
+import { TClient, TProduct, IReport, TSales, TSeller } from "../types";
 import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
 import logger from "m-node-logger";
@@ -11,10 +11,10 @@ class Consolidate {
         private readonly productAPI: Axios,
      ) {}
 
-    async execute(seller: SellerType) {
-        let sales: SalesType[] = [],
-            clients: ClientType[] = [],
-            products: ProductType[] = [];
+    async execute(seller: TSeller) {
+        let sales: TSales[] = [],
+            clients: TClient[] = [],
+            products: TProduct[] = [];
 
         await Promise.all([
             this.salesAPI.get('/').then((e) => {
@@ -36,14 +36,14 @@ class Consolidate {
             || products.length == 0)
             throw new AppError(`Invalid data from one of the APIs`, 500);
 
-        const salesBySeller: SalesType[] = sales.filter(e => e.vendedor_id == seller.id);
+        const salesBySeller: TSales[] = sales.filter(e => e.vendedor_id == seller.id);
 
         if(salesBySeller.length == 0)
             throw new AppError(`Reported sale by seller ${seller.id} is missing from sales API`, 500);
 
         logger.info(`${salesBySeller.length} sales by ${seller.id}`);
 
-        const report: ReportInterface[] = await Promise.all(salesBySeller.map((e) => {
+        const report: IReport[] = await Promise.all(salesBySeller.map((e) => {
             const product = products.find(p => p.id == e.produto_id);
             if(!product)
                 throw new AppError(`Missing product info: ${e.produto_id}`, 500);
@@ -52,7 +52,7 @@ class Consolidate {
             if(!client)
                 throw new AppError(`Missing client info: ${e.produto_id}`, 500);
 
-            return <ReportInterface> {
+            return <IReport> {
                 "ID do Vendedor": seller.id,
                 "Nome do Vendedor": seller.nome,
                 "Telefone do Vendedor": seller.telefone,

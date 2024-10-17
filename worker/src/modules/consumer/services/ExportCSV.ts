@@ -1,5 +1,5 @@
 import papa from 'papaparse'
-import { ReportInterface } from '../types';
+import { IReport } from '../types';
 import fs from 'fs/promises';
 import logger from 'm-node-logger';
 
@@ -8,11 +8,11 @@ class ExportCSV {
         private readonly unparseConfig: papa.UnparseConfig,
         private readonly parseConfig: papa.ParseConfig) {}
 
-    async execute(report: ReportInterface[], id: number) {
+    async execute(report: IReport[], id: number) {
         const filename = `relatorio_${id}.csv`;
         const path = `CSVs/${filename}`;
 
-        let current: ReportInterface[] = [];
+        let current: IReport[] = [];
 
         logger.info(`Generating CSV report...`);
 

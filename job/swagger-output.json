@@ -1,0 +1,140 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Serviço Job",
+    "description": "Documentação da API Backend do serviço Job.\nPara o pleno funcionamento da API, é necessário um serviço de Broker rodando (RabbitMQ).",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "messager",
+      "description": "Endpoints do do mensageiro"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/messager/generate": {
+      "post": {
+        "tags": [
+          "messager"
+        ],
+        "description": "Endpoint gerar as mensagens e envia-las ao Broker através da API de vendedores",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Dado para envio das mensagens",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queue": {
+                  "type": "string",
+                  "example": "Nome da fila no Broker"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enviado X mensagens para o Broker",
+            "schema": {
+              "type": "string",
+              "example": "Sent X sellers to broker",
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro no servidor ou não foi possível se conectar ao Broker"
+          },
+          "502": {
+            "description": "Resposta inválida da API de vendedores"
+          }
+        }
+      }
+    },
+    "/messager/message": {
+      "post": {
+        "tags": [
+          "messager"
+        ],
+        "description": "Endpoint gerar uma única mensagem e envia-la ao Broker",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Dados da mensagem",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SingleMessage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mensagem enviada à fila do Broker",
+            "schema": {
+              "type": "string",
+              "example": "success",
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Paramêtros da chamada faltando"
+          },
+          "500": {
+            "description": "Erro no servidor ou não foi possível se conectar ao Broker"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TSeller": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "Katie McDermott"
+        },
+        "telefone": {
+          "type": "string",
+          "example": "406-471-8338"
+        },
+        "id": {
+          "type": "number",
+          "example": 1
+        }
+      },
+      "required": [
+        "nome",
+        "telefone",
+        "id"
+      ]
+    },
+    "SingleMessage": {
+      "type": "object",
+      "properties": {
+        "seller": {
+          "$ref": "#/definitions/TSeller"
+        },
+        "queue": {
+          "type": "string",
+          "example": "Nome da fila do broker"
+        }
+      },
+      "required": [
+        "seller"
+      ]
+    }
+  }
+}

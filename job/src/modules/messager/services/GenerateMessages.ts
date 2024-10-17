@@ -3,7 +3,7 @@ import { env } from "../../../shared/env";
 import AppError from "../../../shared/errors/AppError";
 import axios, { Axios } from "axios";
 import logger from "m-node-logger";
-import { SellerType } from "../types";
+import { TSeller } from "../types";
 
 class GenerateMessages {
     constructor(private readonly sellerApi: Axios) {}
@@ -24,7 +24,7 @@ class GenerateMessages {
 
         const channel = await broker.createChannel();
 
-        const sellers: SellerType[] = JSON.parse(response.data);
+        const sellers: TSeller[] = JSON.parse(response.data);
 
         let num_messages = 0;
 

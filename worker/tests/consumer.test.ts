@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { env } from '../src/shared/env';
-import { ReportInterface, SellerType } from '../src/modules/consumer/types'
+import { IReport, TSeller } from '../src/modules/consumer/types'
 import Controller from '../src/modules/consumer/Controller'
 import { Request, Response } from 'express';
 import { connect } from 'amqplib';
@@ -40,7 +40,7 @@ describe('Consumer Service', () => {
             durable: true
         });
 
-        const data: SellerType[] = response.data;
+        const data: TSeller[] = response.data;
 
         for(let i = 0; i < data.length; i++) {
             const e = data[i];
@@ -110,7 +110,7 @@ describe('Consumer Service', () => {
 
     it(`Should consolidate a seller's data into a CSV`, async () => {
         const testCSV = fs.readFileSync('tests/data/test_report_1.csv');
-        const testData: ReportInterface[] = papa.parse(testCSV.toString(), {
+        const testData: IReport[] = papa.parse(testCSV.toString(), {
             quotes: true,
             delimiter: ",",	// auto-detect
             newline: "\r\n",	// auto-detect
@@ -128,7 +128,7 @@ describe('Consumer Service', () => {
 
         console.log('Getting seller`s info...');
 
-        const sellersData: SellerType[] = response.data;
+        const sellersData: TSeller[] = response.data;
 
         const sellerID_1 = sellersData.find(e => e.id == 1);
 
@@ -153,7 +153,7 @@ describe('Consumer Service', () => {
         for(let i = 0; i < files.length; i++)
             fs.unlinkSync(`CSVs/${files[i]}`);
 
-        const messages: SellerType[] = await createQueue();
+        const messages: TSeller[] = await createQueue();
 
         let time = 0;
 

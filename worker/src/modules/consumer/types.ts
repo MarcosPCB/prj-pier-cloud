@@ -1,20 +1,20 @@
-export type SellerType = {
+export type TSeller = {
     nome: string,
     telefone: string,
     id: number
 }
 
-export type ClientType = 
-    SellerType & { email: string }
+export type TClient = 
+    TSeller & { email: string }
 
-export type SalesType = {
+export type TSales = {
     vendedor_id: number,
     produto_id: number,
     cliente_id: number,
     id: number
 }
 
-export type ProductType = {
+export type TProduct = {
     nome: string,
     tipo: string,
     preco: number,
@@ -23,7 +23,7 @@ export type ProductType = {
     id: number,
 }
 
-export interface ReportInterface {
+export interface IReport {
     'ID do Vendedor': number,
     'Nome do Vendedor': string,
     'Telefone do Vendedor': string,

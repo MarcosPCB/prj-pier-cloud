@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { env } from '../src/shared/env';
-import { SellerType } from '../src/modules/messager/types'
+import { TSeller } from '../src/modules/messager/types'
 import Controller from '../src/modules/messager/Controller'
 import { Request, Response } from 'express';
 import { connect } from 'amqplib';
@@ -49,7 +49,7 @@ describe('Messager Service', () => {
             return false;
         }
 
-        const sellers: SellerType[] = response.data;
+        const sellers: TSeller[] = response.data;
 
         const num_msgs = sellers.length;
 
@@ -86,7 +86,7 @@ describe('Messager Service', () => {
             return false;
         }
 
-        const sellers: SellerType[] = response.data;
+        const sellers: TSeller[] = response.data;
 
         req.body = { seller: {
             nome: sellers[0].nome,
